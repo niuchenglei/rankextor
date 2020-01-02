@@ -1,0 +1,73 @@
+package rank.graph;
+
+message Condition {
+    required string name = 1 [default = "null"];
+}
+
+message Feature {
+    required string name = 1 [default = "null"];
+    message kvstore {
+        required string key = 1 [default = "default"];
+        required string value = 2 [default = ""];
+    }
+    repeated kvstore data = 2;
+    enum Type {
+        FILE = 0;
+        REDIS = 1;
+    }
+    optional Type type = 3 [default = FILE];
+    optional string condition = 4;
+    optional string group = 5 [default = "begin"];
+    optional string config = 6;
+    optional string comment = 7;
+}
+
+message Extractor {
+    required string name = 1 [default = "xfea"];
+    required string type = 2 [default = "xfea"];
+    repeated string bottom = 3;
+    required string top = 4 [default = "xfea"];
+    required string config = 5 [default = "null"];
+    optional string condition = 6;
+    optional string comment = 7;
+}
+
+message Model {
+    required string name = 1 [default = "lr"];
+    required string type = 2 [default = "lr"];
+    repeated string bottom = 3;
+    required string top = 4 [default = "end"];
+    optional string model_file = 5;
+    optional string map_file = 6;
+    optional float weight = 7 [default = 1.0];
+    optional uint32 offset = 8 [default = 0];
+    enum Role {
+        PREDICTOR = 0;
+        TRANSFORMER = 1;
+    }
+    optional Role role = 9 [default = PREDICTOR];
+    optional string condition = 10;
+    optional string features = 11;      // 模型依赖的特征，可以显示指定，也可隐式推演，格式为：f1,f2,f%d[0-99]
+    optional string formula = 12;       // 模型的融合公式，只在type为fusion时有效
+    optional float sample_ratio = 13;   // 负样本采样率，用于ctr校正
+}
+
+message Strategy {
+    required string name = 1 [default = "null"];
+    required int32 order = 2;
+    optional string ids = 3;            // 过滤原因
+    optional string desc = 4;
+    optional string config = 5;
+    optional string condition = 6;
+    optional string classtype = 7;     // 若配置此项，则由此项对应实现类，否则由name字段对应
+}
+
+message ModelGroup {
+    required string name = 1 [default = "root"];
+    repeated Condition condition = 2;
+    repeated Feature feature = 3;
+    repeated Extractor extractor = 4;
+    repeated Model model = 5;
+    repeated Strategy strategy = 6;
+}
+

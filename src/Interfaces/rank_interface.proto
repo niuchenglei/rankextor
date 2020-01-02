@@ -1,0 +1,164 @@
+package rank.interface;
+
+option optimize_for = SPEED;
+
+message kv_ss {
+    required string key = 1 [default = "default"];
+    required string value = 2 [default = ""];
+}
+
+message kv_si {
+    required string key = 1 [default = "default"];
+    required int64 value = 2 [default = 0];
+}
+
+message kv_ii {
+    required int64 key = 1 [default = 0];
+    required int64 value = 2 [default = 0];
+}
+
+message kv_is {
+    required int64 key = 1 [default = 0];
+    required string value = 2 [default = ""];
+}
+
+message ItemInfo {
+    optional int64 item_id = 1;     // 物料id
+    optional int64 owner_id = 2;    // 创建者id
+    optional int64 type = 3;        // 物流类型
+    optional int64 style_type = 4;  // 创意类型，例如：视频，九宫格，大card
+    optional string object_id = 5;  // 包含对象id
+    optional string text = 6;       // 创意文案内容
+    optional string tag = 7;        // 标签
+
+    optional float ctr = 8;
+    optional float cvr = 9;
+    optional float ctcvr = 10;
+    optional float score = 11;
+    optional int64 bid_price = 12;
+
+    repeated kv_ss extend_ss = 13;
+    repeated kv_si extend_si = 14;
+    repeated kv_ii extend_ii = 15;
+    repeated kv_is extend_is = 16;
+    optional int64 filter_strategy = 17;    // 过滤策略，非0代表被过滤
+}
+
+message AdInfo { 
+    optional int64 ad_id = 1;    
+    optional int64 unit_id = 2; 
+    optional int64 plan_id = 3;   
+    optional int64 cust_id = 4;   
+    optional int64 ad_type = 5; 
+
+    optional int64 bid_type = 6;
+    optional int64 bid_price = 7;
+    optional int64 max_bid_price = 8;
+
+    optional int64 ecpm = 14;
+    optional int64 cost = 15;
+    optional float ctr = 16;
+    optional float cvr = 17;
+    optional float ctcvr = 18;
+    optional float score = 19;
+
+    repeated kv_ss extend_ss = 20;
+    repeated kv_si extend_si = 21;
+    repeated kv_ii extend_ii = 22;
+    repeated kv_is extend_is = 23;
+    optional int64 filter_strategy = 24;    // 过滤策略，非0代表被过滤
+
+    repeated kv_ii available_items = 26;
+    repeated kv_ii selected_items = 27;
+} 
+
+message AdItemPair {
+    optional int64 ad_id = 1;       // 广告id
+    optional int64 ad_idx = 2;      // 广告索引
+    optional int64 item_id = 3;     // 物料id
+    optional int64 item_idx = 4;    // 物料索引
+
+    optional int64 ecpm = 5;
+    optional int64 bid_price = 6;
+    optional int64 cost = 7;
+    optional float ctr = 8;
+    optional float cvr = 9;
+    optional float ctcvr = 10;
+    optional float score = 11;
+
+    repeated kv_ss extend_ss = 12;
+    repeated kv_si extend_si = 13;
+    repeated kv_ii extend_ii = 14;
+    repeated kv_is extend_is = 15;
+    
+    optional int64 filter_strategy = 16;    // 过滤策略，非0代表被过滤
+}
+
+message UserInfo {
+    optional int64 uid = 1;
+    optional string name = 2;
+    optional string age = 3;  
+    optional string gender = 4;  
+    optional string location = 5;  
+    optional string device = 6;  
+    optional string network_type = 7;
+    optional string mobile_brand = 8;
+    optional string client_version = 9;
+    optional string interest = 10;
+    optional string tags = 11;
+
+    repeated kv_ss extend_ss = 12;
+    repeated kv_si extend_si = 13;
+    repeated kv_ii extend_ii = 14;
+    repeated kv_is extend_is = 15; 
+}
+
+message RequestInfo {
+    optional string uid = 1;
+    optional string pvid = 2;           // 请求ip
+    optional string req_ip = 3;         // 请求ip
+    optional string cookie = 4;         // cookie
+    optional string client_id = 5;      // device_id
+
+    optional string pv_time = 7;        // 请求来源
+    optional string psid = 8;           // 请求来源
+    optional string query = 9;          // 查询词
+
+    optional UserInfo user = 10;
+
+    // AB实验组配置
+    message ABGroup {
+        optional string group_id = 1;   // 实验组id
+        optional string policy = 2;     // 流量对应的policy(JSON)
+    }
+    // AB实验层配置
+    message ABLayer {
+        optional string layer_id = 1;   // 实验层id
+        optional ABGroup group = 2;     // AB实验组配置
+    }
+
+    repeated ABLayer ab_layer = 11;     //AB实验层配置对象list
+
+    repeated kv_ss extend_ss = 12;
+    repeated kv_si extend_si = 13;
+    repeated kv_ii extend_ii = 14;
+    repeated kv_is extend_is = 15;
+
+    optional int64 request_num = 16;
+    optional string response_type = 17 [default = "lite"];
+}
+
+message ResponseInfo {
+    required int64 code = 1;
+    required string msg = 2;
+    repeated AdInfo ads = 3;
+    repeated ItemInfo items = 4;
+    repeated AdItemPair pairs = 5;
+}
+
+message Union {
+    required RequestInfo request = 1;
+    repeated AdInfo ads = 2;
+    repeated ItemInfo items = 3;
+}
+

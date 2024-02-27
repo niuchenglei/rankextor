@@ -1,8 +1,8 @@
 rankextor
 
-# High performance rank executor for advertisement and recommendation system, implemented in C/C++ and support ensembled into Java host as plguin or independent process.
+# High performance rank executor for advertisement and recommendation system, implemented in C/C++ and support ensembled into Java/Scala host as plguin or independent process, and it support ML models trained by Xgboost in Python or event Tensorflow deep learning models.
 
-Rankextor is a set of algorithm execution engines based on C/C++. It is mainly used for algorithm serving in the fields of recommendation, advertising, and search. It supports embedding into Java service processes or providing RPC sorting services as an independent process.
+Rankextor is a set of algorithm execution engines based on C/C++. It is mainly used for algorithm serving in the fields of recommendation, advertising, and search. It supports embedding into Java/Scala service processes or providing RPC ranking services as an independent process.
 
 ## Features
 1. Flexible and efficient "graph" execution engine.
@@ -34,5 +34,6 @@ Rankextor is a set of algorithm execution engines based on C/C++. It is mainly u
 4. Dynamic loading of model files and configuration files
 
 ## installation steps
+
 Need integrity within your own code base.
 

@@ -2,58 +2,37 @@ rankextor
 
 # High performance rank executor for advertisement and recommendation system, implemented in C/C++ and support ensembled into Java host as plguin or independent process.
 
-rankextor是一套基于C/C++的算法执行引擎，主要用于推荐、广告、搜索领域的算法排序，支持嵌入到Java服务进程中，或作为独立的进程提供RPC排序服务。
+Rankextor is a set of algorithm execution engines based on C/C++. It is mainly used for algorithm serving in the fields of recommendation, advertising, and search. It supports embedding into Java service processes or providing RPC sorting services as an independent process.
 
-## 功能特点
+## Features
+1. Flexible and efficient "graph" execution engine.
 
-1. 灵活高效的“图”执行引擎。
+2. Convenient feature, strategy, model, and feature engineering support.
+    - Features such as:
+        - Basic user portrait characteristics
+        - Statistical feedback CTR features
+        - Material side characteristics
+    - Click-through rate estimation algorithm is as follows:
+        - LR
+        - FM
+        - GBDT+LR
+        - Deep Learning (Tensorflow)
+    - Feature engineering processing such as:
+        - Equal frequency, equal distance scattering
+        - Bucket
+        - Feature crossover
+        - Multiple feature support
+        - Sample sampling
+        - hash discrete
+    - Strategies such as:
+        - Scoring and ranking
+        - Sort and adjust
+        - Material filtration
 
-2. 方便的特征、策略、模型、特征工程支持。
+3. Embed Java services, or provide RPC services as independent processes
 
-    * 特征如：
+4. Dynamic loading of model files and configuration files
 
-        * 基本用户画像特征
+## installation steps
+Need integrity within your own code base.
 
-        * 统计反馈CTR特征
-
-        * 物料侧特征
-
-    * 点击率预估算法如：
-
-        * LR
-
-        * FM
-
-        * GBDT+LR
-
-        * Wide\&Deep (coming soon)
-
-    * 特征工程处理如：
-
-        * 等频、等距离散
-
-        * 分桶
-
-        * 特征交叉
-
-        * 多特征支持
-
-        * 样本采样
-
-        * hash离散
-
-    * 策略如：
-
-        * 排序打分
-
-        * 排序调权
-
-        * 物料过滤
-
-3. 嵌入Java服务，或作为独立进程提供RPC服务
-
-4. 模型文件、配置文件动态热加载
-
-## 安装步骤
-
-## 使用指南

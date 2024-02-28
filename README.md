@@ -41,3 +41,62 @@ make
 
 For pytorch model training and serving part, check the `pytorch_ranking`
 
+## DAG Configuration
+The following configuration defines what kind of features we need, and what models shall take charge and what kind of rank strategies are needed.
+```
+name: "model"
+condition {
+    name:"bidfeed"
+}
+condition {
+    name:"cpm"
+}
+condition {
+    name:"cpc"
+}
+condition {
+    name:"ocpm"
+}
+feature {
+    name: "request_feature"
+    data: { key: "redis_user_schema" value: "redis_user_schema.txt" }
+    group: "begin"
+}
+extractor {
+    name: "xfea1"
+    type: "xfea"
+    bottom: "begin"
+    top: "ctcvr_fea"
+    config: "suning_features.conf"
+}
+model {
+    name: "gds_ctcvr1"
+    type: "fm"
+    bottom: "ctcvr_fea"
+    top: "ctcvr"
+    role: PREDICTOR
+    model_file: "fm.model"
+} 
+strategy {
+    name: "reset"
+    order: -20
+}
+strategy {
+    name: "calibrate"
+    order: 1
+    ids: "1"
+    desc: "cut"
+}
+strategy {
+    name: "ocpx"
+    order: 2
+}
+strategy {
+    name: "rankscore"
+    order: 3
+}
+strategy {
+    name: "sort"
+    order: 4
+}
+```

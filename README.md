@@ -14,7 +14,7 @@ Rankextor is a set of algorithm execution engines based on C/C++. It is mainly u
         - LR
         - FM
         - GBDT+LR
-        - Deep Learning (Tensorflow)
+        - Deep Learning (Pytorch)
     - Feature engineering processing such as:
         - Equal frequency, equal distance scattering
         - Bucket
@@ -33,5 +33,11 @@ Rankextor is a set of algorithm execution engines based on C/C++. It is mainly u
 
 ## installation steps
 
-Need integrity within your own code base.
+```
+cmake ..
+make
+
+```
+
+For pytorch model training and serving part, check the `pytorch_ranking`
 
